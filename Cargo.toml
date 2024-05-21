@@ -1,0 +1,8 @@
+[package]
+name = "database_sdk_poc"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+uniffi = "0.13"
+
