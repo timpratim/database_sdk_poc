@@ -1,18 +1,13 @@
 namespace database_sdk_poc {
     
-    struct RecordId {
-        tb: string;
-        id: string;
-    }
+};
 
-    struct Person {
-        id: RecordId;
-        firstname: string;
-        lastname: string;
-        age?: u32;
-    }
+interface Surrealdb {
+    constructor();
+    void create(Person person);
+    sequence<Person> select();
+};
 
-    interface DatabaseSDKPOC {
-        create(id: RecordId, firstname: string, lastname: string) -> Person;
-    }
-}
+dictionary Person {
+    string name;
+};

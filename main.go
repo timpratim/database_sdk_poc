@@ -2,12 +2,16 @@ package main
 
 // Import the generated bindings
 import (
-    "github.com/timpratim/database_sdk_poc"
+    "github.com/timpratim/database_sdk_poc/database_sdk_poc"
     "fmt"
 )
 
 func main() {
-    id := database_sdk_poc.NewRecordId("person", "1")
-    person := database_sdk_poc.Create(id, "John", "Doe")
-    fmt.Printf("Created person: %+v\n", person)
+    surrealdb := database_sdk_poc.NewSurrealdb()
+    defer surrealdb.Destroy()
+    surrealdb.Create(database_sdk_poc.Person{Name: "Joh"})
+    persons := surrealdb.Select()
+    
+   // defer person.Destroy()
+    fmt.Printf("Created person: %+v\n", persons)
 }

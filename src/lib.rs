@@ -1,27 +1,31 @@
-use uniffi_macros::uniffi;
+uniffi::include_scaffolding!("database_sdk_poc");
+extern crate uniffi;
+use std::sync::RwLock;
 
-#[derive(Debug)]
-pub struct RecordId {
-    pub tb: String,
-    pub id: String,
-}
-
-#[derive(Debug)]
+#[derive(Clone)]
 pub struct Person {
-    pub id: RecordId,
-    pub firstname: String,
-    pub lastname: String,
-    pub age: Option<u32>,
+    pub name: String,
 }
 
-#[uniffi::export]
-pub fn create(id: RecordId, firstname: String, lastname: String) -> Person {
-    Person {
-        id,
-        firstname,
-        lastname,
-        age: None,
+pub struct Surrealdb{
+    persons: RwLock<Vec<Person>>
+}
+
+impl Surrealdb {
+pub fn new() -> Self {
+    Surrealdb {
+        persons: RwLock::new(Vec::new())
+       
     }
 }
+pub fn create(&self,person: Person) {
+    self.persons.write().unwrap().push(person);
+}
 
-uniffi::include_scaffolding!("database_sdk_poc");
+fn select(&self) -> Vec<Person> {
+    self.persons.read().unwrap().clone()
+}
+
+
+}
+

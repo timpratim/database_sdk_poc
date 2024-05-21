@@ -3,6 +3,13 @@ name = "database_sdk_poc"
 version = "0.1.0"
 edition = "2021"
 
-[dependencies]
-uniffi = "0.13"
+[lib]
+path = "src/lib.rs"
+crate-type = ["cdylib", "staticlib", "lib"]
 
+[dependencies]
+uniffi = "0.25.0"
+uniffi_bindgen = "0.25.0"
+
+[build-dependencies]
+uniffi = { version =  "0.25.0", features = [ "build" ] }

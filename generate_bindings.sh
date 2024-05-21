@@ -1,0 +1,1 @@
+uniffi-bindgen-go src/database_sdk_poc.udl --out-dir .
