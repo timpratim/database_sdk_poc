@@ -348,7 +348,7 @@ func uniffiCheckChecksums() {
 		checksum := rustCall(func(uniffiStatus *C.RustCallStatus) C.uint16_t {
 			return C.uniffi_database_sdk_poc_checksum_method_surrealdb_create(uniffiStatus)
 		})
-		if checksum != 49727 {
+		if checksum != 46246 {
 			// If this happens try cleaning and rebuilding your project
 			panic("database_sdk_poc: uniffi_database_sdk_poc_checksum_method_surrealdb_create: UniFFI API checksum mismatch")
 		}
@@ -357,7 +357,7 @@ func uniffiCheckChecksums() {
 		checksum := rustCall(func(uniffiStatus *C.RustCallStatus) C.uint16_t {
 			return C.uniffi_database_sdk_poc_checksum_method_surrealdb_select(uniffiStatus)
 		})
-		if checksum != 50403 {
+		if checksum != 10154 {
 			// If this happens try cleaning and rebuilding your project
 			panic("database_sdk_poc: uniffi_database_sdk_poc_checksum_method_surrealdb_select: UniFFI API checksum mismatch")
 		}
@@ -488,20 +488,20 @@ func NewSurrealdb() *Surrealdb {
 	}))
 }
 
-func (_self *Surrealdb) Create(person Person) {
+func (_self *Surrealdb) Create(input string) {
 	_pointer := _self.ffiObject.incrementPointer("*Surrealdb")
 	defer _self.ffiObject.decrementPointer()
 	rustCall(func(_uniffiStatus *C.RustCallStatus) bool {
 		C.uniffi_database_sdk_poc_fn_method_surrealdb_create(
-			_pointer, FfiConverterTypePersonINSTANCE.Lower(person), _uniffiStatus)
+			_pointer, FfiConverterStringINSTANCE.Lower(input), _uniffiStatus)
 		return false
 	})
 }
 
-func (_self *Surrealdb) Select() []Person {
+func (_self *Surrealdb) Select() []string {
 	_pointer := _self.ffiObject.incrementPointer("*Surrealdb")
 	defer _self.ffiObject.decrementPointer()
-	return FfiConverterSequenceTypePersonINSTANCE.Lift(rustCall(func(_uniffiStatus *C.RustCallStatus) RustBufferI {
+	return FfiConverterSequenceStringINSTANCE.Lift(rustCall(func(_uniffiStatus *C.RustCallStatus) RustBufferI {
 		return C.uniffi_database_sdk_poc_fn_method_surrealdb_select(
 			_pointer, _uniffiStatus)
 	}))
@@ -587,45 +587,45 @@ func (_ FfiDestroyerTypePerson) Destroy(value Person) {
 	value.Destroy()
 }
 
-type FfiConverterSequenceTypePerson struct{}
+type FfiConverterSequenceString struct{}
 
-var FfiConverterSequenceTypePersonINSTANCE = FfiConverterSequenceTypePerson{}
+var FfiConverterSequenceStringINSTANCE = FfiConverterSequenceString{}
 
-func (c FfiConverterSequenceTypePerson) Lift(rb RustBufferI) []Person {
-	return LiftFromRustBuffer[[]Person](c, rb)
+func (c FfiConverterSequenceString) Lift(rb RustBufferI) []string {
+	return LiftFromRustBuffer[[]string](c, rb)
 }
 
-func (c FfiConverterSequenceTypePerson) Read(reader io.Reader) []Person {
+func (c FfiConverterSequenceString) Read(reader io.Reader) []string {
 	length := readInt32(reader)
 	if length == 0 {
 		return nil
 	}
-	result := make([]Person, 0, length)
+	result := make([]string, 0, length)
 	for i := int32(0); i < length; i++ {
-		result = append(result, FfiConverterTypePersonINSTANCE.Read(reader))
+		result = append(result, FfiConverterStringINSTANCE.Read(reader))
 	}
 	return result
 }
 
-func (c FfiConverterSequenceTypePerson) Lower(value []Person) RustBuffer {
-	return LowerIntoRustBuffer[[]Person](c, value)
+func (c FfiConverterSequenceString) Lower(value []string) RustBuffer {
+	return LowerIntoRustBuffer[[]string](c, value)
 }
 
-func (c FfiConverterSequenceTypePerson) Write(writer io.Writer, value []Person) {
+func (c FfiConverterSequenceString) Write(writer io.Writer, value []string) {
 	if len(value) > math.MaxInt32 {
-		panic("[]Person is too large to fit into Int32")
+		panic("[]string is too large to fit into Int32")
 	}
 
 	writeInt32(writer, int32(len(value)))
 	for _, item := range value {
-		FfiConverterTypePersonINSTANCE.Write(writer, item)
+		FfiConverterStringINSTANCE.Write(writer, item)
 	}
 }
 
-type FfiDestroyerSequenceTypePerson struct{}
+type FfiDestroyerSequenceString struct{}
 
-func (FfiDestroyerSequenceTypePerson) Destroy(sequence []Person) {
+func (FfiDestroyerSequenceString) Destroy(sequence []string) {
 	for _, value := range sequence {
-		FfiDestroyerTypePerson{}.Destroy(value)
+		FfiDestroyerString{}.Destroy(value)
 	}
 }

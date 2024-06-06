@@ -4,10 +4,11 @@ namespace database_sdk_poc {
 
 interface Surrealdb {
     constructor();
-    void create(Person person);
-    sequence<Person> select();
+    void create(string input);
+    sequence<string> select();
 };
 
 dictionary Person {
     string name;
 };
+

@@ -79,7 +79,7 @@ void* uniffi_database_sdk_poc_fn_constructor_surrealdb_new(
 
 void uniffi_database_sdk_poc_fn_method_surrealdb_create(
 	void* ptr,
-	RustBuffer person,
+	RustBuffer input,
 	RustCallStatus* out_status
 );
 

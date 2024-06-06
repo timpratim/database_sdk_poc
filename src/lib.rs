@@ -8,7 +8,7 @@ pub struct Person {
 }
 
 pub struct Surrealdb{
-    persons: RwLock<Vec<Person>>
+    persons: RwLock<Vec<String>>
 }
 
 impl Surrealdb {
@@ -18,14 +18,14 @@ pub fn new() -> Self {
        
     }
 }
-pub fn create(&self,person: Person) {
-    self.persons.write().unwrap().push(person);
+pub fn create(&self,input: String) {
+    self.persons.write().unwrap().push(input);
 }
 
-fn select(&self) -> Vec<Person> {
+fn select(&self) -> Vec<String> {
     self.persons.read().unwrap().clone()
 }
 
-
 }
 
+// First we need to remove the hardcoded person
